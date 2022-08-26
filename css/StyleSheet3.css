@@ -1,0 +1,46 @@
+﻿body {
+    background:url('../images/ondrej-bocek-SehoBKUzYgw-unsplash (1).jpg');
+    width:100%;
+    height:100%;
+    background-size:100%;
+    background-size:cover;
+ 
+   padding:0px;
+   margin:0px;
+}
+.bg
+{
+    
+}
+.form-contain
+{
+    position:relative;
+    top:1vh;
+    background-color:rgba(0,0,0,0.6);
+    padding:30px;
+    width:70vh;
+    border-radius:22px;
+
+
+}
+
+h1{
+    font-size:50px;
+    font-style:oblique;
+    padding-top:10px;
+    margin-top:auto;
+    color:#c7b73b;
+}
+.btn
+{ color:white;}
+
+.lable{
+    color:#fff;
+font-style:oblique;
+}
+.na{
+    margin-left:15px;
+}
+.f{
+    margin-left:-12px;
+}

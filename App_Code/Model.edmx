@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFirstName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserLastName" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="user_status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblbook">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Name="bookid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="booktitle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="aurthor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="bokcategory" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="bokstatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="bokimage" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="boktype" Type="bit" Nullable="false" />
+          <Property Name="edition" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="publication" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Function Name="bokdata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Pass" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="userdata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="status" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="userdelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="tbl" EntityType="Self.tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblbook" EntityType="Self.tblbook" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserLastName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbls" EntityType="Self.tbl" />
+          <FunctionImport Name="login" ReturnType="Collection(dbModel.login_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="userdata" ReturnType="Collection(dbModel.userdata_Result)">
+          <Parameter Name="status" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="userdata1" ReturnType="Collection(dbModel.userdata1_Result)">
+          <Parameter Name="status" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="deleteuser" ReturnType="Collection(dbModel.deleteuser_Result)">
+          <Parameter Name="usrid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="userdelete">
+          <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblbooks" EntityType="dbModel.tblbook" />
+          <FunctionImport Name="bokdata" ReturnType="Collection(dbModel.bokdata_Result)">
+            <Parameter Name="type" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="login_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserFirstName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="UserLastName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserEmail" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="userdata_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserFirstName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="UserLastName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserEmail" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="user_status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="userdata1_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserFirstName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="UserLastName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserEmail" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="user_status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="deleteuser_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserFirstName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="UserLastName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="UserEmail" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="user_status" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="tblbook">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Name="bookid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="booktitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="aurthor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bokcategory" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bokstatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bokimage" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="boktype" Type="Boolean" Nullable="false" />
+          <Property Name="edition" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="publication" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="bokdata_Result">
+          <Property Type="Int32" Name="bookid" Nullable="false" />
+          <Property Type="String" Name="booktitle" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="aurthor" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="bokcategory" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="bokstatus" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="bokimage" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="boktype" Nullable="false" />
+          <Property Type="String" Name="edition" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="publication" Nullable="false" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
+          <EntitySetMapping Name="tbls">
+            <EntityTypeMapping TypeName="dbModel.tbl">
+              <MappingFragment StoreEntitySet="tbl">
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="login" FunctionName="dbModel.Store.login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbModel.login_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="userdata" FunctionName="dbModel.Store.userdata">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbModel.userdata_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="userdelete" FunctionName="dbModel.Store.userdelete" />
+          <EntitySetMapping Name="tblbooks">
+            <EntityTypeMapping TypeName="dbModel.tblbook">
+              <MappingFragment StoreEntitySet="tblbook">
+                <ScalarProperty Name="publication" ColumnName="publication" />
+                <ScalarProperty Name="edition" ColumnName="edition" />
+                <ScalarProperty Name="boktype" ColumnName="boktype" />
+                <ScalarProperty Name="bokimage" ColumnName="bokimage" />
+                <ScalarProperty Name="bokstatus" ColumnName="bokstatus" />
+                <ScalarProperty Name="bokcategory" ColumnName="bokcategory" />
+                <ScalarProperty Name="aurthor" ColumnName="aurthor" />
+                <ScalarProperty Name="booktitle" ColumnName="booktitle" />
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="bokdata" FunctionName="dbModel.Store.bokdata">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbModel.bokdata_Result">
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+                <ScalarProperty Name="booktitle" ColumnName="booktitle" />
+                <ScalarProperty Name="aurthor" ColumnName="aurthor" />
+                <ScalarProperty Name="bokcategory" ColumnName="bokcategory" />
+                <ScalarProperty Name="bokstatus" ColumnName="bokstatus" />
+                <ScalarProperty Name="bokimage" ColumnName="bokimage" />
+                <ScalarProperty Name="boktype" ColumnName="boktype" />
+                <ScalarProperty Name="edition" ColumnName="edition" />
+                <ScalarProperty Name="publication" ColumnName="publication" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
